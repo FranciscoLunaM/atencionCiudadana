@@ -1,0 +1,63 @@
+<p-dialog header="Editar Peticionario" [(visible)]="visible" [modal]="true" [style]=" { width: '40vw'}"
+    (onHide)="cerrar()">
+
+    <form class="p-fluid">
+        <div class="flex flex-col w-full">
+            <div class="py-4 px-4 border-1 border-surface-200 flex justify-center item-center font-medium bg-gray-50 w-full">
+                <div class="flex flex-col gap-4 bg-gray-100 w-full">
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Nombre*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Apellido Paterno*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Apellido Materno*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <p-select placeholder="Sexo" class="w-full" />
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Curp*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Correo*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Teléfono*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <input pInputText class="w-full" autocomplete="off">
+                        <label>Dirección*</label>
+                    </p-floatLabel>
+
+                    <p-floatLabel variant="on">
+                        <p-select placeholder="Municipio" class="w-full"></p-select>
+                    </p-floatLabel>
+                </div>
+            </div>
+
+            <p-divider></p-divider>
+
+            <div>
+                <button pButton type="button" class="p-button-danger rounded mr-2 px-3 py-1"
+                    (click)="cerrar()">Cancelar</button>
+                <button pButton type="submit" class="p-button-info rounded px-3 py-1"><i class="pi pi-heart-fill"></i> Actualizar Datos</button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
