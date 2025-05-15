@@ -1,0 +1,74 @@
+<div class="card">
+    <p-progressSpinner *ngIf="cargando" styleClass="block mx-auto my-6" strokeWidth="4"></p-progressSpinner>
+    <ng-container *ngIf="!cargando">
+
+        <!-- BUSCADOR -->
+        <div class="flex">
+            <p-iconfield iconPosition="left" class="ml-auto">
+                <p-inputicon>
+                    <i class="pi pi-search"></i>
+                </p-inputicon>
+                <input pInputText type="text" (input)="filtrarTabla($event, dt)" placeholder="Buscar..." />
+            </p-iconfield>
+        </div>
+
+        <p-table #dt [value]="peticiones" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]"
+            [globalFilterFields]="['folio','nombrePeticionario','estatus']" [tableStyle]="{ 'min-width': '50rem' }">
+
+            <!-- Tabla Peticiones -->
+            <ng-template #header>
+                <tr>
+                    <th>#</th>
+                    <th>Folio</th>
+                    <th>Nombre del Peticionario</th>
+                    <th>Sello</th>
+                    <th>Estatus</th>
+                    <th>Días Transcurridos</th>
+                    <th>Acciones</th>
+
+                </tr>
+            </ng-template>
+            <ng-template #body let-peticion let-i="rowIndex">
+                <tr>
+                    <td>{{ i+1 }}</td>
+                    <td> {{peticion.folio}} </td>
+                    <td> {{peticion.nombrePeticionario}} </td>
+                    <td> <!-- SELLO -->
+                        <p-button class="mr-2" icon="pi pi-times" [rounded]="true" severity="danger" />
+                        <p-button class="mr-2" icon="pi pi-check" [rounded]="true" severity="success" />
+                    </td>
+                    <td>
+                        <span
+                          class="px-2 py-1 rounded-full text-sm font-semibold"
+                          [ngClass]="{
+                            'bg-green-100 text-green-800': peticion.estatus === 'ATENDIDO',
+                            'bg-red-100 text-red-800': peticion.estatus === 'CANCELADO',
+                            'bg-yellow-100 text-yellow-800': peticion.estatus === 'EN PROCESO'
+                          }">
+                          {{ peticion.estatus }}
+                        </span>
+                      </td>
+                    <td>
+                        <i class="pi pi-exclamation-triangle" style="font-size: 1.5rem; color: red;"></i>
+                        {{peticion.diasTranscurridos}}
+                    </td>
+                    <td> <!-- ACCIONES 
+                        <p-button class="mr-2" icon="pi pi-file-pdf" [rounded]="true" severity="warn" />
+                        <p-button class="mr-2" icon="pi pi-file" [rounded]="true" severity="info" />-->
+                        <button pButton type="button" severity="secondary" class="mr-2"
+                            (click)="abrirModalPeticionario()"><i class="pi pi-pencil"
+                                style="font-size: 1rem;"></i>Editar Peticionario</button>
+                        <button pButton type="button" severity="secondary" class="mr-2"
+                            (click)="abrirModalPeticion()"><i class="pi pi-pencil" style="font-size: 1rem;"></i>Editar
+                            Petición</button>
+                        <button pButton type="button" severity="danger" class="mr-2"><i class="pi pi-times" style="font-size: 1rem;"></i>Cancelar</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-container>
+
+    <!-- Modales -->
+    <app-modal-peticionario [(visible)]="mostrarModalPeticionario"></app-modal-peticionario>
+    <app-modal-peticion [(visible)]="mostrarModalPeticion"></app-modal-peticion>
+</div>
