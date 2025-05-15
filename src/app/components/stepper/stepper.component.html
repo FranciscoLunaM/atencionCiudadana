@@ -1,11 +1,12 @@
-<div class="flex justify-center items-center w-full ">
+<div class="card flex justify-center items-center ">
 
+   
 
-    <p-stepper [value]="1" class="basis-[50rem]">
+    <p-stepper [value]="1" class="basis-[60rem]">
         <p-step-list>
-            <p-step [value]="1">Datos del Peticionario</p-step>
-            <p-step [value]="2">Datos de la Petición</p-step>
-            <p-step [value]="3">Finalizar captura</p-step>
+            <p-step [value]="1">Peticionario</p-step>
+            <p-step [value]="2">Petición</p-step>
+            <p-step [value]="3">Resumen</p-step>
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
@@ -15,33 +16,48 @@
                             class=" py-4 px-4 border-1 border-surface-200 flex justify-center items-center font-medium bg-gray-50 w-full"
                         >
                             <div class="flex flex-col gap-4 bg-gray-100 w-full">
+                                
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full"  autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label" class="w-full" formControlName="nombre"  autocomplete="off" />
+                                    </div>
                                     <label for="on_label">Nombre</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full"  autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label" class="w-full"  autocomplete="off" formControlName="apellido_paterno"/>
+                                    </div>
                                     <label for="on_label">Apellido Paterno</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label"  class="w-full" autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label"  class="w-full" autocomplete="off" formControlName="apellido_materno" />
+                                    </div>
                                     <label for="on_label">Apellido Materno</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full" autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label" class="w-full" autocomplete="off" formControlName="telefono"/>
+                                    </div>
                                     <label for="on_label">Telefono</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full" autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label" class="w-full" autocomplete="off" formControlName="curp"/>
+                                    </div>
                                     <label for="on_label">Curp</label>
                                 </p-floatlabel>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full"  autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label" class="w-full"  autocomplete="off" formControlName="email" />
+                                    </div>
                                     <label for="on_label">Correo</label>
                                 </p-floatlabel>
                                 <div class="flex  mx-auto">
-                                    <div class="card flex justify-center">
-                                        <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Sexo" class="w-full md:w-56" />
+                                    <div class="card flex justify-center" >
+                                        
+                                        <p-select [options]="cities" [(ngModel)]="selectedSex" optionLabel="name" placeholder="Sexo" class="w-full md:w-56" />
+                                      
                                     </div>
                                     
                                     <div class="card flex justify-center">
@@ -49,7 +65,9 @@
                                     </div>
                                 </div>
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full" autocomplete="off" />
+                                    <div [formGroup]="peticionarioForm">
+                                        <input pInputText id="on_label" class="w-full" autocomplete="off" formControlName="direccion"/>
+                                    </div>
                                     <label for="on_label">Dirección</label>
                                 </p-floatlabel>
                             
@@ -84,23 +102,27 @@
                                 </div>
                                 <div class="flex justify-center items-center space-x-4 ">
                                     <div class="card flex items-center justify-center">
-                                        <p-checkbox  value="New York" inputId="ny" />
-                                        <label for="ny" class="ml-2">¿Sello?</label>
+                                        <p-checkbox [binary]="true"  [(ngModel)]="selloStatus" (click)="onChangeStatus()" />
+                                        <label class="ml-2">¿Sello?</label>
                                     </div>
                                     
                                     <div class="card flex justify-center">
-                                        <p-datepicker   [(ngModel)]="sello" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
+                                        <p-datepicker id="datepickersello"  [disabled]="disabledSelloStatus" [(ngModel)]="sello" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
                                     </div>
                                 </div>
                                 
                                
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full" autocomplete="off" />
+                                    <div [formGroup]="peticionForm">
+                                        <input pInputText id="on_label" class="w-full" autocomplete="off" formControlName="observaciones" />
+                                    </div>
                                     <label for="on_label">Observaciones</label>
                                 </p-floatlabel>
 
                                 <p-floatlabel variant="on">
-                                    <input pInputText id="on_label" class="w-full" autocomplete="off" />
+                                    <div [formGroup]="peticionForm">
+                                        <input pInputText id="on_label" class="w-full" autocomplete="off" formControlName="asunto" />
+                                    </div>
                                     <label for="on_label">Asunto</label>
                                 </p-floatlabel>
                             
@@ -115,18 +137,81 @@
 
             <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
+                    <div class="flex flex-col">
                         <div
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark: flex-auto flex justify-center items-center font-medium"
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark: flex-auto flex justify-evenly
+                            items-center font-medium"
                         >
-                            Content III
+                        <div>
+                            <div class="text-lg">Datos del Peticionario:</div>
+                            <p-divider />
+                            <div >
+                                
+                                <span class="font-bold">Nombre:</span> @if (peticionarioForm.get('nombre')?.value) {<span class="text-sky-500">  {{peticionarioForm.get('nombre')?.value}} </span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                                </div>
+                            <div>
+                                <span class="font-bold">Apellido Paterno: </span> @if (peticionarioForm.get('apellido_paterno')?.value) {<span class="text-sky-500">  {{peticionarioForm.get('apellido_paterno')?.value}} </span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold"> Apellido Materno:</span> @if(peticionarioForm.get('apellido_materno')?.value){ <span class="text-sky-500">{{peticionarioForm.get('apellido_materno')?.value}}</span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold">Telefono:</span> @if (peticionarioForm.get('telefono')?.value) { <span class="text-sky-500"> {{peticionarioForm.get('telefono')?.value}} </span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold"> Curp: </span>@if(peticionarioForm.get('curp')?.value){ <span class="text-sky-500"> {{peticionarioForm.get('curp')?.value}} </span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>  
+                            <div>
+                                <span class="font-bold">Correo:</span> @if (peticionarioForm.get('email')?.value) { <span class="text-sky-500">{{peticionarioForm.get('email')?.value}}</span> } @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold">  Sexo: </span> @if (selectedSex?.name) { <span class="text-sky-500"> {{selectedSex?.name}} </span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold">Municipio:</span> @if(selectedMunicipio?.name){<span class="text-sky-500">{{selectedMunicipio?.name}} </span> } @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold"> Direccion: </span> @if(peticionarioForm.get('direccion')?.value){<span class="text-sky-500">{{peticionarioForm.get('direccion')?.value}} </span> } @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            
+                        </div>
+                        <div  >
+                            <div class="text-lg">Datos de la Petición:</div>
+                            <p-divider />
+                            <div>
+                                <span class="font-bold">Dependencia:</span> @if (selectedDependencia?.name) { <span class="text-sky-500"> {{selectedDependencia?.name}} </span> } @else{<span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold">  Area de Atención: </span> @if(selectedAreaDeAtencion?.name){ <span class="text-sky-500">  {{selectedAreaDeAtencion?.name}} </span> } @else{<span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold"> Fecha de Recepción: </span> @if(dateReception){ <span class="text-sky-500">  {{dateReception}} </span>} @else {<span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                            <div>
+                                <span class="font-bold"> Sello: </span> @if(selloStatus){<span class="text-sky-500">  Si </span> } @else {<span class="text-red-400 "> No </span> }        
+                            </div>
+                            <div>
+                                <span class="font-bold"> fecha de Sello:</span> @if(sello){<span class="text-sky-500">  {{sello}} </span> } @else {<span class="text-red-400 "> Sin datos</span> } 
+                            </div>
+                            <div>
+                                <span class="font-bold">Asunto: </span>  @if(peticionForm.get('asunto')?.value){ <span class="text-sky-500"> {{peticionForm.get('asunto')?.value}} </span> } @else { <span class="text-red-400 "> Sin datos</span>  }
+                                
+                            </div>
+                            <div>
+                                <span class="font-bold">Observaciones: </span> @if(peticionForm.get('observaciones')?.value){ <span class="text-sky-500">  {{peticionForm.get('observaciones')?.value }} </span>} @else{ <span class="text-red-400 "> Sin datos</span>}
+                            </div>
+                        </div>
+                        
+                        
                         </div>
                     </div>
                     <div class="flex pt-6 justify-start">
+                        <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="test()" />
                         <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
                     </div>
                 </ng-template>
             </p-step-panel>
         </p-step-panels>
     </p-stepper>
+  
 </div>
